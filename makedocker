@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source ./variables.sh
+
+
+opts=(
+  -t "senorsmile-idris:${IDRIS_VER}"
+  --build-arg IDRIS_VER=$IDRIS_VER 
+  --build-arg UID=$(id -u)            # get user id
+  --build-arg GID=$(id -g)            # get group id
+  . # this dir
+)
+
+time docker build ${opts[@]}
