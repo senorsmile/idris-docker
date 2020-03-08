@@ -18,32 +18,26 @@ RUN set -ex && apt-get install -y \
                   cabal-install make \
                   zlibc zlib1g-dev
 
-# install idris
-RUN cabal update
-RUN cabal install idris-$IDRIS_VER
-
-
 
 
 # apt install vim
 RUN set -ex && apt-get install -y \
                   vim \
                   git \
-                  curl
+                  curl \
+                  rsync
 
 
 # remove apt cache
 RUN set -ex && rm -rf /var/lib/apt/lists/*
 
 
-# add cabal builds to path
-ENV PATH ${PATH}:/root/.cabal/bin
+
 
 
 
 #-----------------------------------------
 ### user creation
-
 
 # read input args
 ARG UID
@@ -59,15 +53,28 @@ RUN groupadd --gid ${UID} idris && \
     useradd --uid ${GID} --no-user-group idris
 
 WORKDIR /home/idris
+
+# cp idris install to idris user
+#_RUN rsync -avP /root/.cabal/ /home/idris/.cabal/  
+
+
+
 RUN chown -R idris:idris /home/idris
 USER idris
+#-----------------------------------------
 
-# pathogen for vim
-RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-RUN echo "execute pathogen#infect()\nsyntax on\nfiletype plugin indent on\nfiletype on" >> ~/.vimrc
-RUN echo "map <C-n> :NERDTreeToggle<CR>" >> ~/.vimrc
+
+
+#-----------------------------------------
+### install idris
+
+# cabal install idris
+RUN cabal update
+RUN cabal install idris-$IDRIS_VER
+
+# add cabal builds to path
+ENV PATH ${PATH}:/home/idris/.cabal/bin
 #-----------------------------------------
 
 
@@ -76,6 +83,12 @@ RUN echo "map <C-n> :NERDTreeToggle<CR>" >> ~/.vimrc
 #-----------------------------------------
 ### vim
 
+# pathogen for vim
+RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+RUN echo "execute pathogen#infect()\nsyntax on\nfiletype plugin indent on\nfiletype on" >> ~/.vimrc
+RUN echo "map <C-n> :NERDTreeToggle<CR>" >> ~/.vimrc
 # nerdtree for vim
 RUN git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
 
@@ -103,7 +116,7 @@ RUN git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airli
 
 
 
-VOLUME /home/idris
+#VOLUME /home/idris
 
 
 

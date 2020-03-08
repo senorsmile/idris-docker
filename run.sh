@@ -10,8 +10,8 @@ opts=(
   --rm
   -v ${PWD}:/home/idris/hostdir/ # mount this dir
   -v ${HOME}/.bashrc:/home/idris/.bashrc # copy in bashrc
-  --name idris1.3.2
-  "senorsmile-idris:${IDRIS_VER}"
+  --name "idris${IDRIS_VER}"
+  "senorsmile-idris:${IDRIS_VER}-${BUILD_NUM}"
   $@
 )
 

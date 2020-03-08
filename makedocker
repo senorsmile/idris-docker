@@ -6,8 +6,8 @@ source ./variables.sh
 
 
 opts=(
-  -t "senorsmile-idris:${IDRIS_VER}"
-  --build-arg IDRIS_VER=$IDRIS_VER 
+  -t "senorsmile-idris:${IDRIS_VER}-${BUILD_NUM}"
+  --build-arg IDRIS_VER=$IDRIS_VER
   --build-arg UID=$(id -u)            # get user id
   --build-arg GID=$(id -g)            # get group id
   . # this dir
