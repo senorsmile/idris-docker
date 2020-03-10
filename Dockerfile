@@ -95,12 +95,13 @@ RUN git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
 # nerdtree-git-plugin
 RUN git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git ~/.vim/bundle/nerdtree-git-plugin
 
-## vim airline
+# vim airline
 RUN git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
 
+# ctrl-p
+git clone https://github.com/ctrlpvim/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
 
 # install idris-vim
-
 ## dep: vim proc
 RUN git clone https://github.com/Shougo/vimproc.vim.git ~/.vim/bundle/vimproc.vim && \
     cd ~/.vim/bundle/vimproc.vim && \
