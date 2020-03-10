@@ -16,7 +16,8 @@ RUN set -ex && apt-get update
 # apt install deps
 RUN set -ex && apt-get install -y \
                   cabal-install make \
-                  zlibc zlib1g-dev
+                  zlibc zlib1g-dev \
+                  binutils-gold
 
 
 
@@ -68,9 +69,6 @@ USER idris
 
 #-----------------------------------------
 ### install idris
-RUN set -ex && sudo apt-get install -y \
-                      binutils-gold
-
 # cabal install idris
 RUN cabal update
 RUN cabal install idris-$IDRIS_VER --with-ld=ld.gold
