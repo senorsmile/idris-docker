@@ -99,7 +99,7 @@ RUN git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git ~/.vim/bundle/n
 RUN git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
 
 # ctrl-p
-git clone https://github.com/ctrlpvim/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
+RUN git clone https://github.com/ctrlpvim/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim
 
 # install idris-vim
 ## dep: vim proc
