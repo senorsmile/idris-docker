@@ -68,10 +68,12 @@ USER idris
 
 #-----------------------------------------
 ### install idris
+RUN set -ex && sudo apt-get install -y \
+                      binutils-gold
 
 # cabal install idris
 RUN cabal update
-RUN cabal install idris-$IDRIS_VER
+RUN cabal install idris-$IDRIS_VER --with-ld=ld.gold
 
 # add cabal builds to path
 ENV PATH ${PATH}:/home/idris/.cabal/bin
@@ -95,6 +97,8 @@ RUN git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
 # nerdtree-git-plugin
 RUN git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git ~/.vim/bundle/nerdtree-git-plugin
 
+## vim airline
+RUN git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
 
 
 # install idris-vim
@@ -110,8 +114,6 @@ RUN git clone https://github.com/Shougo/vimshell.vim.git ~/.vim/bundle/vimshell.
 ## idris-vim itself
 RUN git clone https://github.com/idris-hackers/idris-vim.git ~/.vim/bundle/idris-vim
 
-## vim airline
-RUN git clone https://github.com/vim-airline/vim-airline ~/.vim/bundle/vim-airline
 #-----------------------------------------
 
 
