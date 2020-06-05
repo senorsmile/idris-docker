@@ -4,6 +4,9 @@ set -euo pipefail
 
 source variables.sh
 
+set +u
+bashrc="$BASHRC:-$HOME/.bashrc"
+set -u
 
 opts=(
   -it

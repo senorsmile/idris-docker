@@ -8,6 +8,7 @@ ARG IDRIS_VER
 ENV IDRIS_VER ${IDRIS_VER}
 
 
+ENV LANG=en_US.UTF-8
 
 # apt update
 RUN set -ex && apt-get update
@@ -21,13 +22,20 @@ RUN set -ex && apt-get install -y \
 
 
 
-# apt install vim
+# apt install vim et al
 RUN set -ex && apt-get install -y \
                   vim \
                   git \
                   curl \
-                  rsync
+                  rsync \
+                  tmux \
+                  locales
 
+
+# set locale
+RUN sed -i -e "s/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/" /etc/locale.gen && \
+  dpkg-reconfigure --frontend=noninteractive locales && \
+  update-locale
 
 # remove apt cache
 RUN set -ex && rm -rf /var/lib/apt/lists/*
